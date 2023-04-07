@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  - var ice=[{ice_name:"chocolate",number_of_scoops:"3",ice_price:50},{ice_name:"blackberry",number_of_scoops:"2",ice_price:40},{ice_name:"butterscotch",number_of_scoops:"5",ice_price:60}]
+  div(class="container-fluid")
+  div(class="row")
+   each i,index  in ice
+    div(class="col-sm-2" onclick =`buy(${index})`) #{i.ice_name}, #{i.number_of_scoops}, #{i.ice_price}
+    script.
+        function buy(a)
+        {
+            alert(`You purchased Item ${a+1}`)
+        }
