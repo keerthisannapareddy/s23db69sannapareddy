@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+  - let ice_id = toShow._id
+  - let ice_name = toShow.ice_name
+  - let number_of_scoops = toShow.number_of_scoops
+  - let ice_price = toShow.ice_price
+  div
+    div.row
+        div(class='iceAttr mr-3') ice id is:
+        div #{ice_id}
+    div.row
+        div(class='iceAttr mr-3') ice name is:
+        div #{ice_name}
+    div.row
+        div(class='iceAttr mr-3') number of scoops is:
+        div #{number_of_scoops}
+    div.row
+        div(class='iceAttr mr-3') ice price is:
+        div #{ice_price}

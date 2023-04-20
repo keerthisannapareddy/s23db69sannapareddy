@@ -1,0 +1,39 @@
+extends layout
+block content
+    h1= title
+    - let ice_id = toShow._id
+    - let ice_name = toShow.ice_name
+    - let number_of_scoops = toShow.number_of_scoops
+    - let ice_price = toShow.ice_price
+    div.row(class='mb-2')
+     div.mr-1 ID is
+     div #{ice_id}
+    - let actionid = "/resource/ice/" + ice_id
+    form(id='iceForm', action= actionid, method="PUT")
+     div.form-group
+        label.iceAttr(for='ice_name') ice name
+        input#ice_name(type='text', name='ice_name', value= ice_name )
+     div.form-group
+        label.iceAttr(for='number_of_scoops') number of scoops
+        input#number_of_scoops(type='number', name='number_of_scoops', value= number_of_scoops )
+     div.form-group
+        label.iceAttr(for='ice_price') ice price
+        input#ice_price(type='text', name='ice_price', value= ice_price )
+     input(type="submit")
+    script.
+     document.forms['iceForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+      });
+     });

@@ -1,0 +1,33 @@
+extends layout
+
+block content
+ h1= title
+
+ form(id='kiteForm', action="/resource/ice", method="POST")
+   div.form-group
+        label.kiteAttr(for='ice_name') ice name 
+        input#ice_name(type='text', name='ice_name')
+   div.form-group
+        label.kiteAttr(for='number_of_scoops') number of scoops
+        input#number_of_scoops(type='text', name='number_of_scoops')
+   div.form-group
+        label.kiteAttr(for='ice_price')  ice price
+        input#ice_price(type='number', name='ice_price')
+        input(type="submit")
+ script.
+   document.forms['iceForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    // TODO do something here to show user that form is being submitted
+   fetch(event.target.action, {
+    method: 'POST',
+    body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+   }).then((resp) => {
+    return resp.json(); // or resp.text() or whatever the server sends
+   }).then((body) => {
+    alert("Save succeded")
+    // TODO handle body
+   }).catch((error) => {
+    // TODO handle error
+    alert("Save failed " + error )
+   });
+  });

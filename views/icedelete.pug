@@ -1,0 +1,49 @@
+extends layout
+block content
+    h1= title
+    if (toShow == null)
+     h2 No instance to delete
+    else
+     - let ice_id = toShow._id
+     - let ice_name = toShow.ice_name
+     - let number_of_scoops = toShow.number_of_scoops
+     - let ice_price = toShow.ice_price
+     - let actionid = "/resource/ice/" + ice_id
+     script let actionid = "#{actionid}"
+     div
+        div.row
+            div(class='iceAttr mr-3') ice id is:
+            div #{ice_id}
+        div.row
+            div(class='iceAttr mr-3') ice name is:
+            div #{ice_name}
+        div.row
+            div(class='iceAttr mr-3') number_of_scoops is:
+            div #{number_of_scoops}
+        div.row
+            div(class='iceAttr mr-3') ice_price is:
+            div #{ice_price}
+     button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+     button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    script.
+        function cancel() {
+        // Go back to the home page for the costume collection
+        window.location.href='/ice'
+        }
+    script.
+        function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+        method: 'DELETE' 
+        }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/ice'
+        // TODO handle body
+        }).catch((error) => {
+        // TODO handle error
+        alert("Delete failed " + error )
+        });
+     }
