@@ -4,10 +4,22 @@ block content
   h1= title
   //- var ice=[{ice_name:"chocolate",number_of_scoops:"3",ice_price:50},{ice_name:"blackberry",number_of_scoops:"2",ice_price:40},{ice_name:"butterscotch",number_of_scoops:"5",ice_price:60}]
   - let result =results
+  - let create = `dispatch(\"/ice/create\")`
+  button.btn( class="btn-info", onclick= create) Add new soaps
   div(class="container-fluid")
   div(class="row")
    each i,index  in result
-    div(class="col-sm-2" onclick =`buy(${index})`) #{i.ice_name}, #{i.number_of_scoops}, #{i.ice_price}
+     - let destination = `dispatch(\"/ice/update?id=${result._id}\")`
+     - let detail = `dispatch(\"/ice/detail/?id=${result._id}")`
+     - let deletesoaps = `dispatch(\"/ice/delete/?id=${result._id}")`  
+     div(class="col-sm-2" onclick =`buy(${index})`) #{i.ice_name}, #{i.number_of_scoops}, #{i.ice_price}
+       button.btn( class="btn-primary ml-1", onclick= destination) Update
+       button.btn( class="btn-success", onclick= detail) Details
+       button.btn( class="btn-dark", onclick= deletesoaps) Delete
+  script.
+   function dispatch(path){
+    window.location.href=path
+   }
     script.
         function buy(a)
         {

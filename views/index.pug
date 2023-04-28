@@ -1,20 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Hello there!
-  button(type="button" class="btn btn-secondary" onclick="doReduce()") Press Me
-  br
-  br
-  div#reduce Reduce the value
-  br
-  br
-  a(href='http://localhost:3000/ice') Click Here to Visit Ice Cream Website
-  script.
-    let count = 20;
-    let change = -1;
-    function doReduce() {
-      count += change;
-      change -= 1;
-      document.getElementById('reduce').textContent = `Count ${count} with change ${change}`;
-    }
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/ice") Take me to soaps
+    br
+    a(href="/logout") Logout
